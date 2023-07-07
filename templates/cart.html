@@ -1,0 +1,76 @@
+{% extends "card.html" %}
+<!--  -->
+
+{% block title %} {{titleCart}}{% endblock %}
+<!--  -->
+
+{% block titlePrice %} {% if titlePrice %} ${{ titlePrice }} {% endif %} {%
+endblock %}
+<!--  -->
+
+{% block content %}
+<!--  -->
+{% if carts == [] %}
+<div class="cart-empty">
+    <p class="cart-empty-text">Your cart is empty</p>
+</div>
+{% endif %}
+<!--  -->
+{% for item in carts %} {% set product = item.product %}
+<div class="cart-item">
+    <div class="cart-item-left">
+        <div
+            class="cart-item-image"
+            style="background-color: {{product.color}}"
+        >
+            <div class="cart-item-image-block">
+                <img src="{{product.image}}" alt="{{product.name}} " />
+            </div>
+        </div>
+    </div>
+    <div class="cart-item-right">
+        <div class="cart-item name">{{product.name}}</div>
+        <div class="cart-item-price">${{product.price}}</div>
+        <div class="cart-item-actions">
+            <div class="cart-item-count">
+                <form action="{{ url_for('update_cart') }}" method="POST">
+                    <input type="hidden" name="item_id" value="{{ item.id }}" />
+                    <button
+                        type="submit"
+                        name="action"
+                        value="decrease"
+                        class="cart-item-count-button"
+                    >
+                        -
+                    </button>
+                    <div class="cart-item-count-number">{{item.quantity}}</div>
+                    <button
+                        type="submit"
+                        name="action"
+                        value="increase"
+                        class="cart-item-count-button"
+                    >
+                        +
+                    </button>
+                </form>
+            </div>
+            <form
+                action="{{ url_for('remove_from_cart') }}"
+                method="POST"
+                class="cart-form"
+            >
+                <input type="hidden" name="item_id" value="{{ item.id }}" />
+                <button type="submit" class="cart-item-remove-button">
+                    <img
+                        src="{{trash}}"
+                        alt="Remove icon"
+                        class="remove-icon"
+                    />
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<!--  -->
+{% endblock %}

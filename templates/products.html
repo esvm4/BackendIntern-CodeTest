@@ -1,0 +1,38 @@
+{% extends "card.html" %}
+
+<!--  -->
+
+{% block title %}{{ titleProduct }}{% endblock %}
+
+<!--  -->
+
+{% block content %}
+<!--  -->
+{% for product in products %}
+<div class="shop-item">
+    <div class="shop-item-image" style="background-color: {{product.color}};">
+        <img src="{{product.image}}" alt="{{product.name + "image"}}" >
+    </div>
+    <div class="shop-item-name">{{product.name}}</div>
+    <div class="shop-item-description">{{product.description}}</div>
+    <div class="shop-item-bottom">
+        <div class="shop-item-price">$ {{product.price}}</div>
+        <form method="POST">
+            <input type="hidden" name="product_id" value="{{ product.id }}" />
+            {% set is_in_cart = false %} {% for item in carts %} {% if
+            item.product_id == product.id %} {% set is_in_cart = true %} {%
+            endif %} {% endfor %} {% if is_in_cart %}
+            <div class="shop-item-button inactive">
+                <img src="{{ check }}" alt="Check mark" class="check-mark" />
+            </div>
+            {% else %}
+            <button type="submit" class="shop-item-button">
+                <p>Add to cart</p>
+            </button>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endfor %}
+<!--  -->
+{% endblock %}

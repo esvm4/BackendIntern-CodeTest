@@ -1,0 +1,13 @@
+<div class="card-top">
+    <img src="{{nike}}" alt="Nike logo" class="logo" />
+</div>
+<div class="card-title">
+    {% block title %}Default Title{% endblock %}
+    <!--  -->
+    <span class="cart-title-amount">
+        {% block titlePrice %}{% endblock %}
+    </span>
+</div>
+<div class="card-body">
+    <div>{% block content %} {% endblock %}</div>
+</div>
