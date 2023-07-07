@@ -8,6 +8,11 @@
             rel="stylesheet"
             href="{{url_for('static', filename='css/main.css')}}"
         />
+        <link
+            rel="icon"
+            href="{{ url_for('static', filename='assets/favicon.ico') }}"
+            type="image/x-icon"
+        />
     </head>
     <body>
         {% block content %} {% endblock %}
