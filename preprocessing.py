@@ -7,6 +7,15 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///shoes.db"
 db = SQLAlchemy(app)
 
 
+class Cart(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    product_id = db.Column(db.Integer, db.ForeignKey("shoe.id"), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return "<Cart %r>" % self.id
+
+
 class Shoe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     image = db.Column(db.String(), nullable=False)
